@@ -134,25 +134,28 @@ if args["api_key"] is not None:
             """
             This event is triggered before updating the policy.
             """
-            metrics = {
-                "rollout/ep_rew_mean": safe_mean([ep_info["r"] for ep_info in self.model.ep_info_buffer]),
-                "rollout/ep_len_mean": safe_mean([ep_info["l"] for ep_info in self.model.ep_info_buffer])
-            }
+            metrics = {}
+            
+            # Log episode statistics if available
+            if len(self.model.ep_info_buffer) > 0:
+                metrics["rollout/ep_rew_mean"] = safe_mean([ep_info["r"] for ep_info in self.model.ep_info_buffer])
+                metrics["rollout/ep_len_mean"] = safe_mean([ep_info["l"] for ep_info in self.model.ep_info_buffer])
+            
             if len(self.model.ep_success_buffer) > 0:
                 metrics["rollout/success_rate"] = safe_mean(self.model.ep_success_buffer)
 
-            l = [
-                "train/loss",
-                "train/n_updates",
-            ]
-
-            for val in l:
-                if val in self.logger.name_to_value.keys():
-                    metrics[val] = self.logger.name_to_value[val]
+            # Log all available training metrics from the logger
+            if self.logger is not None:
+                for key, value in self.logger.name_to_value.items():
+                    metrics[key] = value
 
             step = self.model.num_timesteps
 
-            self.experiment.log_metrics(metrics, step=step)
+            if metrics:  # Only log if we have metrics
+                self.experiment.log_metrics(metrics, step=step)
+                
+            if self.verbose > 0 and step % 10000 == 0:
+                print(f"Step {step}: Logged {len(metrics)} metrics to Comet ML")
         
         def _on_training_end(self) -> None:
             """
