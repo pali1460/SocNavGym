@@ -109,10 +109,11 @@ if args["api_key"] is not None:
         """
         A custom callback for logging to Comet ML without saving checkpoints.
         """
-        def __init__(self, run_name:str, project_name:str, api_key:str, verbose=0):
+        def __init__(self, run_name:str, project_name:str, api_key:str, log_freq=1000, verbose=0):
             super(CometMLCallback, self).__init__(verbose)
             print("Logging using comet_ml")
             self.run_name = run_name
+            self.log_freq = log_freq
             self.experiment = Experiment(
                 api_key=api_key,
                 project_name=project_name,
@@ -128,34 +129,32 @@ if args["api_key"] is not None:
             This method is called after each step.
             Return False to stop training.
             """
-            return True
-
-        def _on_rollout_end(self) -> None:
-            """
-            This event is triggered before updating the policy.
-            """
-            metrics = {}
-            
-            # Log episode statistics if available
-            if len(self.model.ep_info_buffer) > 0:
-                metrics["rollout/ep_rew_mean"] = safe_mean([ep_info["r"] for ep_info in self.model.ep_info_buffer])
-                metrics["rollout/ep_len_mean"] = safe_mean([ep_info["l"] for ep_info in self.model.ep_info_buffer])
-            
-            if len(self.model.ep_success_buffer) > 0:
-                metrics["rollout/success_rate"] = safe_mean(self.model.ep_success_buffer)
-
-            # Log all available training metrics from the logger
-            if self.logger is not None:
-                for key, value in self.logger.name_to_value.items():
-                    metrics[key] = value
-
-            step = self.model.num_timesteps
-
-            if metrics:  # Only log if we have metrics
-                self.experiment.log_metrics(metrics, step=step)
+            # Log metrics every log_freq steps
+            if self.n_calls % self.log_freq == 0:
+                metrics = {}
                 
-            if self.verbose > 0 and step % 10000 == 0:
-                print(f"Step {step}: Logged {len(metrics)} metrics to Comet ML")
+                # Log episode statistics if available
+                if len(self.model.ep_info_buffer) > 0:
+                    metrics["rollout/ep_rew_mean"] = safe_mean([ep_info["r"] for ep_info in self.model.ep_info_buffer])
+                    metrics["rollout/ep_len_mean"] = safe_mean([ep_info["l"] for ep_info in self.model.ep_info_buffer])
+                
+                if len(self.model.ep_success_buffer) > 0:
+                    metrics["rollout/success_rate"] = safe_mean(self.model.ep_success_buffer)
+
+                # Log all available training metrics from the logger
+                if self.logger is not None:
+                    for key, value in self.logger.name_to_value.items():
+                        metrics[key] = value
+
+                step = self.model.num_timesteps
+
+                if metrics:  # Only log if we have metrics
+                    self.experiment.log_metrics(metrics, step=step)
+                    
+                    if self.verbose > 0:
+                        print(f"Step {step}: Logged {len(metrics)} metrics to Comet ML")
+            
+            return True
         
         def _on_training_end(self) -> None:
             """
