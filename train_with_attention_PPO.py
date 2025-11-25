@@ -5,7 +5,7 @@ import torch.nn as nn
 import numpy as np
 from gymnasium import ObservationWrapper
 from socnavgym.wrappers import DiscreteActions
-from stable_baselines3 import DQN
+from stable_baselines3 import PPO
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 import argparse
 from stable_baselines3.common.callbacks import BaseCallback
