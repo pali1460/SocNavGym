@@ -117,7 +117,7 @@ class Reward(RewardAPI):
         robot_pos = np.array(self.env.robot.x, self.env.robot.y)
 
         for human in self.env.static_humans + self.env.dynamic_humans:
-            dist = np.linalg.norm(robot_pos - np.array(human.position))
+            dist = np.linalg.norm(robot_pos - np.array(human.x, human.y))
             proxemic_zone = self.get_proxemic_zone(dist)
 
             # these are just arbitarily chosen values for now
