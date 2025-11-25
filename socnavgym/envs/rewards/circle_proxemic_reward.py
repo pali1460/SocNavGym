@@ -114,7 +114,7 @@ class Reward(RewardAPI):
     
     def compute_proxemics(self):
         reward = 0
-        robot_pos = np.array(self.env.robot.position)
+        robot_pos = np.array(self.env.robot.x, self.env.robot.y)
 
         for human in self.env.static_humans + self.env.dynamic_humans:
             dist = np.linalg.norm(robot_pos - np.array(human.position))
