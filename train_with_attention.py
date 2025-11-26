@@ -320,14 +320,16 @@ model = DQN(
     policy_kwargs=policy_kwargs, 
     device=device,
     buffer_size=args["buffer_size"],
-    learning_rate=1e-4,
-    learning_starts=10000,
-    batch_size=256,
+    learning_starts=5000,     # Start learning sooner (was 10000)
+    train_freq=2,             # Update every 2 steps (was 4) = 2x more updates
+    gradient_steps=2,         # 2 gradient steps per update (was 1) = 2x more learning
+    batch_size=256,           # Larger batches
+    learning_rate=5e-4,       # Higher learning rate
+    target_update_interval=5000,  # Update target more often
     tau=1.0,
     gamma=0.99,
     train_freq=4,
     gradient_steps=1,
-    target_update_interval=10000,
     exploration_fraction=0.3,
     exploration_initial_eps=1.0,
     exploration_final_eps=0.05,
