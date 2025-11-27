@@ -11,7 +11,8 @@ import argparse
 from tqdm import tqdm
 from stable_baselines3.common.monitor import Monitor
 import sys
-
+import imageio
+import os
 
 class FixedPaddingWrapper(ObservationWrapper):
     """
@@ -407,9 +408,17 @@ if __name__ == "__main__":
     ap.add_argument("-n", "--num_episodes", type=int, required=True, help="number of episodes")
     ap.add_argument("-w", "--weight_path", type=str, required=True, help="path to weight file")
     ap.add_argument("-c", "--config", type=str, required=True, help="path to config file")
+    ap.add_argument("-s", "--save_dir", type=str, required=False, help="path to save episodes")
     args = vars(ap.parse_args())
+
+    # Create folder if needed
+    save_dir = False
+    if args['save_dir']:
+        save_dir = args['save_dir']
+        os.makedirs(save_dir, exist_ok=True)
     
-    print(f"Loading environment from config: {args['config']}")
+    
+    print(f"Loading environment from config: {args['config']}", render_mode="rgb_array")
     print(f"Using global max entities: {GLOBAL_MAX_ENTITIES}")
     
     # Create environment with fixed padding - MUST MATCH TRAINING
