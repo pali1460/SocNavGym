@@ -136,7 +136,7 @@ class Reward(RewardAPI):
                 case self.Proxemic_Zone.PUBLIC:
                     reward += 0.0
             
-        reward /= (nearby + 1)  # normalize by number of nearby humans to prevent scaling with crowd size
+        reward /= (nearby + 1e-6)  # normalize by number of nearby humans to prevent scaling with crowd size
 
         return reward
     
