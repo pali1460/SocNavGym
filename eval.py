@@ -10,6 +10,8 @@ import argparse
 from tqdm import tqdm
 from stable_baselines3.common.monitor import Monitor
 import sys
+import imageio
+import os
 
 
 class FixedPaddingWrapper(ObservationWrapper):
@@ -86,7 +88,9 @@ GLOBAL_MAX_ENTITIES = {
 }
 
 
-def eval(model, num_episodes, env):
+def eval(model, num_episodes, env, save_dir=False):
+
+    env.render_mode_= 'rgb_array'
     # initialising metrics
     discomfort_sngnn = 0
     discomfort_dsrnn = 0
@@ -162,13 +166,18 @@ def eval(model, num_episodes, env):
         avg_obstacle_dist = 0
         avg_minimum_time_to_collision = 0
 
+        frames = []
         while not done:
             action, _states = model.predict(obs, deterministic=True)
             new_state, reward, terminated, truncated, info = env.step(action)
             done = terminated or truncated
             total_reward += reward
 
-            # env.render()
+            env.render()
+            frame = env.world_image
+            if frame is not None:
+                frames.append(frame)
+         
             steps += 1
             count += 1
 
@@ -224,7 +233,11 @@ def eval(model, num_episodes, env):
                 jerk_min = info["JERK_MIN"]
                 jerk_avg = info["JERK_AVG"]
                 jerk_max = info["JERK_MAX"]
-
+        # After episode finishes
+        if has_reached_goal and save_dir!= False:
+            video_path = f"{save_dir}/{i}.mp4"
+            imageio.mimwrite(video_path, frames, fps=30)
+            print(f"Saved success episode to {video_path}")
         discomfort_sngnn += episode_discomfort_sngnn
         discomfort_dsrnn += episode_discomfort_dsrnn
         timeout += has_timed_out
@@ -311,13 +324,23 @@ if __name__ == "__main__":
     ap.add_argument("-n", "--num_episodes", type=int, required=True, help="number of episodes")
     ap.add_argument("-w", "--weight_path", type=str, required=True, help="path to weight file")
     ap.add_argument("-c", "--config", type=str, required=True, help="path to config file")
+    ap.add_argument("-s", "--save_dir", type=str, required=False, help="path to save episodes")
     args = vars(ap.parse_args())
+
+
+    # Create folder if needed
+    save_dir = False
+    if args['save_dir']:
+        save_dir = args['save_dir']
+        os.makedirs(save_dir, exist_ok=True)
     
     print(f"Loading environment from config: {args['config']}")
     print(f"Using global max entities: {GLOBAL_MAX_ENTITIES}")
     
     # Create environment with fixed padding - MUST MATCH TRAINING
-    env = gym.make("SocNavGym-v1", config=args["config"])
+    # env = gym.make("SocNavGym-v1", config=args["config"])
+    env = gym.make("SocNavGym-v1", config=args["config"], render_mode="rgb_array")
+
     env = FixedPaddingWrapper(env, GLOBAL_MAX_ENTITIES)
     env = DiscreteActions(env)
     
@@ -331,4 +354,4 @@ if __name__ == "__main__":
         print(f"Error loading model: {e}")
         sys.exit(1)
         
-    eval(model, args["num_episodes"], env)
+    eval(model, args["num_episodes"], env, save_dir)
