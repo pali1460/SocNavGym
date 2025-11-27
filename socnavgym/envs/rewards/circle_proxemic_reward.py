@@ -116,20 +116,27 @@ class Reward(RewardAPI):
         reward = 0
         robot_pos = np.array(self.env.robot.x, self.env.robot.y)
 
+        nearby = 0
+
         for human in self.env.static_humans + self.env.dynamic_humans:
             dist = np.linalg.norm(robot_pos - np.array(human.x, human.y))
             proxemic_zone = self.get_proxemic_zone(dist)
-
+            
             # these are just arbitarily chosen values for now
             match proxemic_zone:
                 case self.Proxemic_Zone.INTIMETE:
-                    reward -= 1.0
-                case self.Proxemic_Zone.PERSONAL:
                     reward -= 0.5
+                    nearby += 1
+                case self.Proxemic_Zone.PERSONAL:
+                    reward -= 0.2
+                    nearby += 1
                 case self.Proxemic_Zone.SOCIAL:
-                    reward -= 0.1
+                    reward -= 0.02
+                    nearby += 1
                 case self.Proxemic_Zone.PUBLIC:
                     reward += 0.0
+            
+        reward /= (nearby + 1)  # normalize by number of nearby humans to prevent scaling with crowd size
 
         return reward
     
