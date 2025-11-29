@@ -123,12 +123,19 @@ class Reward(RewardAPI):
         for human in self.env.static_humans + self.env.dynamic_humans:
             dist = np.linalg.norm(robot_pos - np.array(human.x, human.y))
             proxemic_zone = self.get_proxemic_zone(dist)
-            
+            angle_between = np.arctan2(human.y - self.env.robot.y, human.x - self.env.robot.x)
+            human_orientation = human.theta
+
+            if abs(angle_between - human_orientation) > np.pi/2:
+                continue  # human is facing away, skip proxemic penalty
+
             # these are just arbitarily chosen values for now
             match proxemic_zone:
                 case self.Proxemic_Zone.INTIMETE:
                     reward -= 0.5
                     nearby += 1
+
+                    
                 case self.Proxemic_Zone.PERSONAL:
                     reward -= 0.2
                     nearby += 1
