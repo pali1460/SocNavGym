@@ -339,7 +339,7 @@ if __name__ == "__main__":
     
     # Create environment with fixed padding - MUST MATCH TRAINING
     # env = gym.make("SocNavGym-v1", config=args["config"])
-    env = gym.make("SocNavGym-v1", config=args["config"], render_mode="rgb_array")
+    env = gym.make("SocNavGym-v1", config=args["config"])
 
     env = FixedPaddingWrapper(env, GLOBAL_MAX_ENTITIES)
     env = DiscreteActions(env)

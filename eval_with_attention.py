@@ -418,7 +418,7 @@ if __name__ == "__main__":
         os.makedirs(save_dir, exist_ok=True)
     
     
-    print(f"Loading environment from config: {args['config']}", render_mode="rgb_array")
+    print(f"Loading environment from config: {args['config']}")
     print(f"Using global max entities: {GLOBAL_MAX_ENTITIES}")
     
     # Create environment with fixed padding - MUST MATCH TRAINING
