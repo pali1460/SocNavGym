@@ -21,10 +21,10 @@ class Reward(RewardAPI):
         self.prev_distance = None
 
         # proxemics
-        self.proxemic_scalar = 0.5
+        self.proxemic_scalar = 0.75
 
         # Obstacle Avoidance
-        self.obstacle_safety_distance = 0.6 
+        self.obstacle_safety_distance = 0.5
         self.obstacle_penalty_factor = -0.1
         self.sensor_range = 4.0 # Optimization: Only check obstacles within 4m
 
@@ -119,7 +119,7 @@ class Reward(RewardAPI):
             self.info["alive_reward"] = self.alive_reward
             self.info["proxemics_reward"] = self.compute_proxemics()
 
-            return dsrnn_reward + distance_reward + self.alive_reward + self.info["proxemics_reward"]
+            return dsrnn_reward + distance_reward + self.alive_reward + self.info["proxemics_reward"] + self.compute_obstacle_avoidance_reward()[0]
     
     def compute_proxemics(self):
         reward = 0
