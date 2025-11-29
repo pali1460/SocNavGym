@@ -20,7 +20,7 @@ class Reward(RewardAPI):
         self.discomfort_penalty_factor = 0.5
         self.prev_distance = None
 
-        self.proxemic_scalar = 0.5
+        self.proxemic_scalar = 2.0
 
     # compute the minimum distance between the robot and all humans/interactions over the next timestep
     def compute_dmin(self, action):
