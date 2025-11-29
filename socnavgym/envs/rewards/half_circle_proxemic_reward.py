@@ -124,7 +124,7 @@ class Reward(RewardAPI):
             dist = np.linalg.norm(robot_pos - np.array(human.x, human.y))
             proxemic_zone = self.get_proxemic_zone(dist)
             angle_between = np.arctan2(human.y - self.env.robot.y, human.x - self.env.robot.x)
-            human_orientation = human.theta
+            human_orientation = human.orientation % (2 * np.pi)
 
             if abs(angle_between - human_orientation) > np.pi/2:
                 continue  # human is facing away, skip proxemic penalty
