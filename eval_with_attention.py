@@ -321,7 +321,11 @@ def eval(model, num_episodes, env):
                 jerk_min = info["JERK_MIN"]
                 jerk_avg = info["JERK_AVG"]
                 jerk_max = info["JERK_MAX"]
-
+        # After episode finishes
+        if has_reached_goal and save_dir!= False:
+            video_path = f"{save_dir}/{i}.mp4"
+            imageio.mimwrite(video_path, frames, fps=30)
+            print(f"Saved success episode to {video_path}")
         discomfort_sngnn += episode_discomfort_sngnn
         discomfort_dsrnn += episode_discomfort_dsrnn
         timeout += has_timed_out
