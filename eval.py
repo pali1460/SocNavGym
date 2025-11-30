@@ -319,6 +319,60 @@ def eval(model, num_episodes, env, save_dir=False):
     print(f"{'='*60}\n")
 
 
+    if(save_dir != False):
+        results_text = (
+            f"\n{'='*60}\n"
+            f"EVALUATION RESULTS ({num_episodes} episodes)\n"
+            f"{'='*60}\n"
+            f"Average discomfort_sngnn: {discomfort_sngnn/num_episodes:.4f}\n"
+            f"Average discomfort_dsrnn: {discomfort_dsrnn/num_episodes:.4f}\n"
+            f"\nSuccess Metrics:\n"
+            f"  Success rate: {success_rate/num_episodes:.4f}\n"
+            f"  STL: {total_stl/num_episodes:.4f}\n"
+            f"  SPL: {total_spl/num_episodes:.4f}\n"
+            f"\nCollision Metrics:\n"
+            f"  Overall collision rate: {collision_rate/num_episodes:.4f}\n"
+            f"  Human collision rate: {collision_rate_human/num_episodes:.4f}\n"
+            f"  Object collision rate: {collision_rate_object/num_episodes:.4f}\n"
+            f"  Wall collision rate: {collision_rate_wall/num_episodes:.4f}\n"
+            f"\nTime Metrics:\n"
+            f"  Timeout rate: {timeout/num_episodes:.4f}\n"
+            f"  Average time taken: {time_taken/num_episodes:.2f} steps\n"
+            f"  Average time to reach goal: {total_time_to_reach_goal/num_episodes:.2f} steps\n"
+            f"  Average failure to progress: {total_failure_to_progress/num_episodes:.2f}\n"
+            f"  Average stalled time: {total_stalled_time/num_episodes:.2f}\n"
+            f"\nPath Metrics:\n"
+            f"  Average path length: {total_path_length/num_episodes:.4f} m\n"
+            f"\nVelocity Metrics:\n"
+            f"  Min velocity: {total_vel_min/num_episodes:.4f} m/s\n"
+            f"  Avg velocity: {total_vel_avg/num_episodes:.4f} m/s\n"
+            f"  Max velocity: {total_vel_max/num_episodes:.4f} m/s\n"
+            f"\nAcceleration Metrics:\n"
+            f"  Min acceleration: {total_a_min/num_episodes:.4f} m/s²\n"
+            f"  Avg acceleration: {total_a_avg/num_episodes:.4f} m/s²\n"
+            f"  Max acceleration: {total_a_max/num_episodes:.4f} m/s²\n"
+            f"\nJerk Metrics:\n"
+            f"  Min jerk: {total_jerk_min/num_episodes:.4f} m/s³\n"
+            f"  Avg jerk: {total_jerk_avg/num_episodes:.4f} m/s³\n"
+            f"  Max jerk: {total_jerk_max/num_episodes:.4f} m/s³\n"
+            f"\nDistance Metrics:\n"
+            f"  Closest human distance: {closest_human_dist/num_episodes:.4f} m\n"
+            f"  Closest obstacle distance: {closest_obstacle_dist/num_episodes:.4f} m\n"
+            f"  Average obstacle distance: {total_avg_obstacle_distance/num_episodes:.4f} m\n"
+            f"  Personal space compliance: {total_psc/num_episodes:.4f}\n"
+            f"  Minimum time to collision: {total_minimum_time_to_collision/num_episodes:.4f} s\n"
+            f"{'='*60}\n"
+        )
+        
+        import os
+
+        filename = "evaluation_results.txt"
+        filepath = os.path.join(save_dir, filename)
+        
+        with open(filepath, "w") as f:
+            f.write(results_text)
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("-n", "--num_episodes", type=int, required=True, help="number of episodes")
