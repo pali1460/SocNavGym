@@ -259,13 +259,19 @@ def eval(model, num_episodes, env):
         avg_obstacle_dist = 0
         avg_minimum_time_to_collision = 0
 
+        frames = []
         while not done:
             action, _states = model.predict(obs, deterministic=True)
             new_state, reward, terminated, truncated, info = env.step(action)
             done = terminated or truncated
             total_reward += reward
 
-            # env.render()
+
+            env.render()
+            frame = env.world_image
+            if frame is not None:
+                frames.append(frame)
+            
             steps += 1
             count += 1
 
