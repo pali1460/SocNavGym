@@ -6,7 +6,7 @@ from socnavgym.envs.rewards.reward_api import RewardAPI
 from enum import Enum
 import matplotlib.patches as patches
 
-# Increased terminal penalty e.g. collisoin
+# Increased terminal penalty and distance reward
 class Reward(RewardAPI):
     def __init__(self, env: SocNavEnv_v1) -> None:
         super().__init__(env)
