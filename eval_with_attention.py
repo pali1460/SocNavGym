@@ -266,7 +266,9 @@ def eval(model, num_episodes, env):
             done = terminated or truncated
             total_reward += reward
 
-            frame = env.world_image
+            base = env.unwarpped
+            frame = base.world_image
+            
             if frame is not None:
                 frames.append(frame)
             
