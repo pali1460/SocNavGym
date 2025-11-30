@@ -6,11 +6,11 @@ from socnavgym.envs.rewards.reward_api import RewardAPI
 from enum import Enum
 import matplotlib.patches as patches
 
-# Increased terminal penalty and distance reward
+# Increased reward to succeed and reduced alive reward back to original
 class Reward(RewardAPI):
     def __init__(self, env: SocNavEnv_v1) -> None:
         super().__init__(env)
-        self.reach_reward = 2.0
+        self.reach_reward = 3.0
         self.out_of_map_reward = -1.0 
         self.max_steps_reward = -2.0 
         self.alive_reward = -0.00001 
