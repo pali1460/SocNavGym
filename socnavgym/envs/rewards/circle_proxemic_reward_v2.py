@@ -13,7 +13,7 @@ class Reward(RewardAPI):
         self.reach_reward = 2.0
         self.out_of_map_reward = -1.0 
         self.max_steps_reward = -2.0 
-        self.alive_reward = -0.00002 
+        self.alive_reward = -0.00001 
         self.collision_reward = -3.0
         self.distance_reward_scaler = 1.0
         self.discomfort_distance = 0.6
