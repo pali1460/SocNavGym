@@ -1,0 +1,50 @@
+
+============================================================
+EVALUATION RESULTS (100 episodes)
+============================================================
+Average discomfort_sngnn: 0.0000
+Average discomfort_dsrnn: 0.0000
+
+Success Metrics:
+  Success rate: 0.2400
+  STL: 0.1983
+  SPL: 0.2121
+
+Collision Metrics:
+  Overall collision rate: 0.5400
+  Human collision rate: 0.3400
+  Object collision rate: 0.2000
+  Wall collision rate: 0.0300
+
+Time Metrics:
+  Timeout rate: 0.2200
+  Average time taken: 164.91 steps
+  Average time to reach goal: 164.91 steps
+  Average failure to progress: 8.96
+  Average stalled time: 28.22
+
+Path Metrics:
+  Average path length: 5.1530 m
+
+Velocity Metrics:
+  Min velocity: 0.0130 m/s
+  Avg velocity: 0.0773 m/s
+  Max velocity: 0.1000 m/s
+
+Acceleration Metrics:
+  Min acceleration: 0.0020 m/s²
+  Avg acceleration: 0.0335 m/s²
+  Max acceleration: 0.1300 m/s²
+
+Jerk Metrics:
+  Min jerk: 0.0010 m/s³
+  Avg jerk: 0.0607 m/s³
+  Max jerk: 0.2200 m/s³
+
+Distance Metrics:
+  Closest human distance: 1.3832 m
+  Closest obstacle distance: 0.8366 m
+  Average obstacle distance: 4.3988 m
+  Personal space compliance: 0.9584
+  Minimum time to collision: 13376.9190 s
+============================================================
