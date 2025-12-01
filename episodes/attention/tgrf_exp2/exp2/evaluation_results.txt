@@ -6,45 +6,45 @@ Average discomfort_sngnn: 0.0000
 Average discomfort_dsrnn: 0.0000
 
 Success Metrics:
-  Success rate: 0.2100
-  STL: 0.1298
-  SPL: 0.1647
+  Success rate: 0.1600
+  STL: 0.0786
+  SPL: 0.1453
 
 Collision Metrics:
-  Overall collision rate: 0.3400
-  Human collision rate: 0.1700
-  Object collision rate: 0.1700
-  Wall collision rate: 0.0400
+  Overall collision rate: 0.5200
+  Human collision rate: 0.0900
+  Object collision rate: 0.4300
+  Wall collision rate: 0.3400
 
 Time Metrics:
-  Timeout rate: 0.4500
-  Average time taken: 179.08 steps
-  Average time to reach goal: 179.08 steps
-  Average failure to progress: 9.34
-  Average stalled time: 66.32
+  Timeout rate: 0.3200
+  Average time taken: 180.01 steps
+  Average time to reach goal: 180.01 steps
+  Average failure to progress: 10.63
+  Average stalled time: 70.34
 
 Path Metrics:
-  Average path length: 5.8840 m
+  Average path length: 3.2570 m
 
 Velocity Metrics:
-  Min velocity: 0.0180 m/s
-  Avg velocity: 0.0603 m/s
+  Min velocity: 0.0110 m/s
+  Avg velocity: 0.0481 m/s
   Max velocity: 0.1000 m/s
 
 Acceleration Metrics:
   Min acceleration: 0.0010 m/s²
-  Avg acceleration: 0.0266 m/s²
-  Max acceleration: 0.1570 m/s²
+  Avg acceleration: 0.0156 m/s²
+  Max acceleration: 0.1200 m/s²
 
 Jerk Metrics:
   Min jerk: 0.0020 m/s³
-  Avg jerk: 0.0494 m/s³
-  Max jerk: 0.2620 m/s³
+  Avg jerk: 0.0292 m/s³
+  Max jerk: 0.1870 m/s³
 
 Distance Metrics:
-  Closest human distance: 1.1351 m
-  Closest obstacle distance: 0.8283 m
-  Average obstacle distance: 4.4198 m
-  Personal space compliance: 0.9586
-  Minimum time to collision: 296.6577 s
+  Closest human distance: 2.1374 m
+  Closest obstacle distance: 0.6628 m
+  Average obstacle distance: 4.4756 m
+  Personal space compliance: 0.9583
+  Minimum time to collision: 214650.2799 s
 ============================================================
