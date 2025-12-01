@@ -15,7 +15,7 @@ This repository contains a fork for SocNavGym (located [here](https://github.com
 or
 
 ```
-docker bilt -t socnavgym:latest .
+docker build -t socnavgym:latest .
 ```
 
 We recommend running an interactive session:
