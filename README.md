@@ -1,4 +1,4 @@
-# SocNavGym : An Environment for Social Navigation With Attention
+# GenNavGym : An Environment for Social Navigation With Generalization
 
 ## Description
 This repository contains a fork for SocNavGym (located [here](https://github.com/gnns4hri/SocNavGym)). This fork implements two new training and evaluation scripts, allowing users to trian and evaluate across environments with differing amounts of entities.  
