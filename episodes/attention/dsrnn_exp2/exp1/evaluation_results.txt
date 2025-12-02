@@ -3,48 +3,48 @@
 EVALUATION RESULTS (100 episodes)
 ============================================================
 Average discomfort_sngnn: 0.0000
-Average discomfort_dsrnn: -0.9063
+Average discomfort_dsrnn: -0.5073
 
 Success Metrics:
-  Success rate: 0.1300
-  STL: 0.0732
-  SPL: 0.1163
+  Success rate: 0.1600
+  STL: 0.0695
+  SPL: 0.1074
 
 Collision Metrics:
-  Overall collision rate: 0.1300
-  Human collision rate: 0.0400
-  Object collision rate: 0.0900
-  Wall collision rate: 0.0400
+  Overall collision rate: 0.0900
+  Human collision rate: 0.0100
+  Object collision rate: 0.0800
+  Wall collision rate: 0.0200
 
 Time Metrics:
-  Timeout rate: 0.7400
-  Average time taken: 189.25 steps
-  Average time to reach goal: 189.25 steps
-  Average failure to progress: 10.14
-  Average stalled time: 108.40
+  Timeout rate: 0.7500
+  Average time taken: 185.40 steps
+  Average time to reach goal: 185.40 steps
+  Average failure to progress: 14.61
+  Average stalled time: 94.70
 
 Path Metrics:
-  Average path length: 6.5390 m
+  Average path length: 7.5460 m
 
 Velocity Metrics:
-  Min velocity: 0.0090 m/s
-  Avg velocity: 0.0421 m/s
+  Min velocity: 0.0100 m/s
+  Avg velocity: 0.0492 m/s
   Max velocity: 0.1000 m/s
 
 Acceleration Metrics:
   Min acceleration: 0.0000 m/s²
-  Avg acceleration: 0.0234 m/s²
-  Max acceleration: 0.1460 m/s²
+  Avg acceleration: 0.0340 m/s²
+  Max acceleration: 0.1550 m/s²
 
 Jerk Metrics:
-  Min jerk: 0.0000 m/s³
-  Avg jerk: 0.0435 m/s³
-  Max jerk: 0.2610 m/s³
+  Min jerk: 0.0010 m/s³
+  Avg jerk: 0.0666 m/s³
+  Max jerk: 0.2740 m/s³
 
 Distance Metrics:
-  Closest human distance: 2.0822 m
-  Closest obstacle distance: 1.1104 m
-  Average obstacle distance: 4.7080 m
-  Personal space compliance: 0.9974
-  Minimum time to collision: 196.4609 s
+  Closest human distance: 2.1357 m
+  Closest obstacle distance: 1.0887 m
+  Average obstacle distance: 4.6546 m
+  Personal space compliance: 0.9962
+  Minimum time to collision: 191.2227 s
 ============================================================
