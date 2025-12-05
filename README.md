@@ -117,4 +117,6 @@ usage: python3 eval_with_attention.py
 
 Both evaluation scripts save .mp4 recordings of successful episodes, as well as their output in .txt form, to the save directory. 
 
+Note that as in the original SocNavGym, the environment configurations for DSRNN are located at `./environment_configs/exp1_no_sngnn` and `./environment_configs/exp2_no_sngnn`. 
+
 For the usage of stable_dqn.py and sb3_eval.py, refer to [the original repository](https://github.com/gnns4hri/SocNavGym)
